@@ -40,9 +40,17 @@ const formatter = new Intl.DateTimeFormat('th-TH',
 // toISOString ปรับเวลามาเป็น UTC
 const dayA = new Date('2025-10-01T10:00:00+07:00')
 const dayB = new Date('2025-10-01T09:00:00+08:00')
+const dayC = new Date('2025-10-01T09:00:00+08:00')
 
 // console.log(dayA.toISOString());
 // console.log(dayB.toISOString());
 
 
 // comparation DateTime
+console.log(dayA.getTime()); // เปลี่ยนเป็น millisecond
+console.log(dayB.getTime());
+if(dayA < dayB){
+    console.log(`dayA come before dayB`);
+}else{
+    console.log(`dayB come before dayA`);
+}

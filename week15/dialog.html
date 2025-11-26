@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        HELLO WORLD
+        <button id="color">color</button>
+        <button id="nonModal">click show Non-Modal</button>
+        <button id="modal">click show Modal</button>
+    </div>
+
+    <script>
+
+    const btnModal = document.getElementById("modal")
+    btnModal.addEventListener("click" , () => {
+        const dailog = document.createElement("dialog")
+        dailog.textContent = "HELLO !!!"
+
+        document.body.append(dailog)
+
+        dailog.showModal()
+    })
+    const btnNonModal = document.getElementById("nonModal")
+    btnNonModal.addEventListener("click" , () => {
+        const dailog = document.createElement("dialog")
+        dailog.textContent = "HELLO !!!"
+
+        document.body.append(dailog)
+
+        dailog.show()
+    })
+    const btnColor = document.querySelector("#color")
+    btnColor.addEventListener("click" , () => {
+        document.body.style.background = "blue"
+    })
+    
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    DATA :
+    <div id="content">
+        
+    </div>
+
+
+
+
+
+    <script>
+
+    async function queryData(){
+        const res = await fetch("https://jsonplaceholder.typicode.com/posts/1")
+        const data = await res.json()
+        const key = Object.keys(data)
+
+        key.forEach( item => {
+            const pEl = document.createElement("p")
+            pEl.textContent = `${item} : ${data[item]}`
+
+            const divCon = document.querySelector("#content")
+            divCon.append(pEl)
+        })
+
+    }
+    
+    queryData()
+
+
+    </script>
+</body>
+</html>

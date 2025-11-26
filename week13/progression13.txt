@@ -1,0 +1,22 @@
+Fetch API
+- การส่งคำขอ ไปยัง server (request)
+- รับข้อมูลกลับมา (response)
+- ใช้สำหรับ HTTP เช่น GET, POST, PUT/PATCH, DELETE
+
+
+โครงการเขียน
+fetch(url, options)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+- url เช่น "https://api.example.com/users"
+- option เช่น 
+    method -> GET, POST, PUT/PATCH, DELETE
+    header -> application/json
+    body -> {ข้อมูลที่จะส่งไป}
+
+
+ความรู้ที่ได้รับ
+- สามารถนำไปใช้กับวิชา integrated ได้
+- เข้าใจเรื่องการทำงานกับฝั่ง server มากขึ้น
+- รู้วิธีการจัดการข้อมูล เมื่อต้องการจะ CRUD กับ ฝั่ง server
