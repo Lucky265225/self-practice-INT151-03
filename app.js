@@ -1,6 +1,10 @@
 let timeOpen = new Date("2025-10-01T08:00:00+07:00")
 let timeClose = new Date("2025-11-01T20:00:00+07:00")
-let timeTest = new Date("2025-11-01T19:00:00+07:00")
+let timeTest1 = new Date("2025-11-01T19:00:00+07:00")
+let timeTest2 = new Date("2026-11-01T19:00:00+07:00")
+
+let reserveCourses = []
+
 let courses = [
   {
     "id": "CS101",
@@ -28,6 +32,7 @@ document.addEventListener("DOMContentLoaded" , () => {
     createElementCourse()
     reserveTime()
     checkReserve()
+    showReserve()
 })
 
 
@@ -38,6 +43,8 @@ function createElementCourse(){
         const pContent = document.createElement("p")
         const btnReserve = document.createElement("button")
         const btnCancel = document.createElement("button")
+
+        // divCourse.dataset.id = course.id
         
         btnReserve.className = "can"
         btnCancel.className = "noCan"
@@ -48,12 +55,16 @@ function createElementCourse(){
             divCourse.classList.add("reserve")
             btnReserve.disabled = true
             btnCancel.disabled = false
+            reserveCourses.push(course)
+            showReserve()
         })
 
         btnCancel.addEventListener("click" , () => {
             divCourse.classList.remove("reserve")
             btnReserve.disabled = false
             btnCancel.disabled = true
+            reserveCourses = reserveCourses.filter(c => c.id !== course.id);
+            showReserve()
         })
 
         divCourse.className = "course"
@@ -88,11 +99,50 @@ function reserveTime(){
 function checkReserve(){
     const btnReserve = document.querySelectorAll(".can")
     const btnCancel = document.querySelectorAll(".noCan")
-    if(timeOpen.getTime() < timeTest.getTime() && timeTest.getTime() < timeClose.getTime()){
+    if(timeOpen.getTime() < timeTest1.getTime() && timeTest1.getTime() < timeClose.getTime()){
         btnReserve.forEach(btn => btn.disabled = false)
         btnCancel.forEach(btn => btn.disabled = false)
     }else{
         btnReserve.forEach(btn => btn.disabled = true)
         btnCancel.forEach(btn => btn.disabled = true)
     }
+}
+
+function checkCredit(){
+    const btnReserve = document.querySelectorAll(".can")
+    let totalCredit = reserveCourses.reduce((a,b) => a + b.credit,0)
+    console.log(totalCredit);
+    if(totalCredit < 6){
+        btnReserve.forEach(btn => btn.disabled = false)
+    }else{
+        btnReserve.forEach(btn => btn.disabled = true)
+    }
+}
+
+
+function showReserve(){
+    const showReserve = document.getElementById("showReserve")
+    const showCredit = document.getElementById("showCredit")
+    showReserve.textContent = ""
+    showCredit.textContent = ""
+    let totalCredit = 0
+    console.log(reserveCourses);
+    if(reserveCourses.length === 0){
+        return null
+    }
+
+    reserveCourses.forEach(course => {
+        totalCredit += course.credit
+
+        const showReserve = document.getElementById("showReserve")
+        const divCourse = document.createElement("div")
+
+        divCourse.className = "reserveCourse"
+        divCourse.textContent = course.courseTitle
+        
+        showReserve.append(divCourse)
+    })
+
+    showCredit.textContent = `current credit : ${totalCredit}`
+    checkCredit()
 }
